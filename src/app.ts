@@ -10,10 +10,20 @@ import { resultRoutes } from "./modules/results/result.routes";
 import { feeRoutes } from "./modules/fees/fee.routes";
 import { passwordResetRoutes } from "./modules/password-reset/password-reset.routes";
 
-
+import cors from "cors";
 
 
 const app = express();
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://your-frontend.vercel.app", 
+    ],
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json());
