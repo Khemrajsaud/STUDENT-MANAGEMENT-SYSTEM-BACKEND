@@ -15,12 +15,15 @@ import cors from "cors";
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://your-frontend.vercel.app", 
-    ],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
