@@ -17,6 +17,7 @@ const app = express();
 
 const allowedOrigins: string[] = [
   "http://localhost:3000",
+  "https://student-management-system-frontend-eight-sigma.vercel.app",
   process.env.FRONTEND_URL,
   process.env.VERCEL_URL,
 ].filter((origin): origin is string => Boolean(origin));
