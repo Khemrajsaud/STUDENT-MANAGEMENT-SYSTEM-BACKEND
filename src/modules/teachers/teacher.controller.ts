@@ -30,6 +30,15 @@ export class TeacherController {
     }
   }
 
+  static async updateTeacher(req: Request, res: Response) {
+    try {
+      const result = await TeacherService.updateTeacher(req.params.id as string, req.body);
+      res.status(200).json({ success: true, message: "Teacher updated successfully", data: result });
+    } catch (error: any) {
+      res.status(400).json({ success: false, message: error.message });
+    }
+  }
+
   static async deleteTeacher(req: Request, res: Response) {
     try {
       await TeacherService.deleteTeacher(req.params.id as string);

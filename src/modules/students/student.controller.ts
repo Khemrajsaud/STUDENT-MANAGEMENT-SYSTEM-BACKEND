@@ -31,6 +31,16 @@ export class StudentController {
     }
   }
 
+  static async getCurrentStudent(req: Request, res: Response): Promise<void> {
+    try {
+      const userId = (req as any).user.userId;
+      const student = await StudentService.getStudentByUserId(userId);
+      res.status(200).json({ success: true, data: student });
+    } catch (error: any) {
+      res.status(404).json({ success: false, message: error.message });
+    }
+  }
+
   static async update(req: Request, res: Response): Promise<void> {
     try {
       const validated = updateStudentSchema.parse(req.body);

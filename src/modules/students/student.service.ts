@@ -1,8 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { CreateStudentInput, UpdateStudentInput } from "./student.validation";
-
-const prisma = new PrismaClient();
+import prisma from "../../db/prisma";
 
 export class StudentService {
   // Create Student (Handles User creation + Student profile creation in transaction)
@@ -55,6 +54,16 @@ export class StudentService {
   static async getStudentById(id: string) {
     const student = await prisma.student.findUnique({
       where: { id },
+      include: { user: { select: { email: true, role: true } }, class: true },
+    });
+    if (!student) throw new Error("Student not found");
+    return student;
+  }
+
+  // Get current logged-in student by userId
+  static async getStudentByUserId(userId: string) {
+    const student = await prisma.student.findUnique({
+      where: { userId },
       include: { user: { select: { email: true, role: true } }, class: true },
     });
     if (!student) throw new Error("Student not found");

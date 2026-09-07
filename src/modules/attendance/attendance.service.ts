@@ -1,6 +1,5 @@
-import { PrismaClient, AttendanceStatus } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { AttendanceStatus } from "@prisma/client";
+import prisma from "../../db/prisma";
 
 interface MarkAttendanceInput {
   date: string;

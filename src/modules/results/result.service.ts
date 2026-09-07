@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../db/prisma";
 import { calculateGrade } from "./result.utils";
-
-const prisma = new PrismaClient();
 
 interface CreateResultInput {
   marksObtained: number;

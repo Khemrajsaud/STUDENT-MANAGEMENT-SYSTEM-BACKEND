@@ -1,7 +1,6 @@
-import { PrismaClient, Role, Gender } from "@prisma/client";
+import { Role, Gender } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
+import prisma from "../../db/prisma";
 
 interface CreateTeacherInput {
   email: string;
@@ -57,6 +56,16 @@ export class TeacherService {
         classes: true,
         subjects: true,
       },
+    });
+  }
+
+  static async updateTeacher(id: string, data: { firstName?: string; lastName?: string; phone?: string; gender?: Gender }) {
+    const teacher = await prisma.teacher.findUnique({ where: { id } });
+    if (!teacher) throw new Error("Teacher not found");
+    return await prisma.teacher.update({
+      where: { id },
+      data,
+      include: { user: { select: { id: true, email: true, role: true } } },
     });
   }
 

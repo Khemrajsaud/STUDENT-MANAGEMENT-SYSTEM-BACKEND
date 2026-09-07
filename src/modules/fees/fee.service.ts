@@ -1,6 +1,5 @@
-import { PrismaClient, FeeStatus } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { FeeStatus } from "@prisma/client";
+import prisma from "../../db/prisma";
 
 interface CreateFeeInput {
   title: string;
@@ -65,6 +64,7 @@ export class FeeService {
   static async getFeesByStudent(studentId: string) {
     return await prisma.fee.findMany({
       where: { studentId },
+      include: { student: true },
       orderBy: { dueDate: "asc" },
     });
   }

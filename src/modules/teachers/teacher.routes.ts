@@ -9,6 +9,7 @@ const router = Router();
 router.post("/", authenticate, authorize("ADMIN"), TeacherController.createTeacher);
 router.get("/", authenticate, authorize("ADMIN", "TEACHER"), TeacherController.getAllTeachers);
 router.get("/:id", authenticate, authorize("ADMIN", "TEACHER"), TeacherController.getTeacherById);
+router.patch("/:id", authenticate, authorize("ADMIN"), TeacherController.updateTeacher);
 router.delete("/:id", authenticate, authorize("ADMIN"), TeacherController.deleteTeacher);
 
 export default  router
