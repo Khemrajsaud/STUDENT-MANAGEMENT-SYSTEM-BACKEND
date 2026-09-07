@@ -15,11 +15,11 @@ import cors from "cors";
 
 const app = express();
 
-const allowedOrigins = [
+const allowedOrigins: string[] = [
   "http://localhost:3000",
   process.env.FRONTEND_URL,
   process.env.VERCEL_URL,
-].filter(Boolean);
+].filter((origin): origin is string => Boolean(origin));
 
 app.use(
   cors({
